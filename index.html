@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SiteWorth - by Accurate Games & Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f7f7f4;
+  --surface: #ffffff;
+  --surface2: #f0f3f7;
+  --border: #e1e5ea;
+  --border2: #cbd3dc;
+  --text: #191b1f;
+  --text2: #656d78;
+  --text3: #9aa3ad;
+  --accent: #155eef;
+  --accent-bg: #eef4ff;
+  --green: #098a54;
+  --green-bg: #ecfdf5;
+  --red: #cf2e2e;
+  --red-bg: #fff1f1;
+  --amber: #b7791f;
+  --amber-bg: #fff8e6;
+  --radius: 14px;
+  --radius-sm: 9px;
+}
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.shell {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  background: var(--text);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+}
+.brand-name { font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
+.brand-sub { font-size: 11px; color: var(--text3); }
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.pulse {
+  width: 7px;
+  height: 7px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero { margin-bottom: 1.5rem; }
+.hero h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1.22;
+}
+.hero p { font-size: 13px; color: var(--text2); margin-top: .4rem; }
+.bot-msg, .bot-reply {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-bottom-left-radius: 4px;
+  padding: 1rem 1.125rem;
+  margin-bottom: 1.35rem;
+  font-size: 13px;
+  color: var(--text2);
+}
+.bot-av {
+  width: 26px;
+  height: 26px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 1px;
+}
+.sec-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text3);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  margin-bottom: .625rem;
+}
+.cat-grid, .market-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+  margin-bottom: 1.25rem;
+}
+.cat-card, .market-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: .875rem 1rem;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .15s;
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  user-select: none;
+}
+.cat-card:hover, .market-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.cat-card.sel, .market-card.sel {
+  border: 1.5px solid var(--accent);
+  background: var(--accent-bg);
+}
+.cat-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+}
+.cat-title, .market-title { font-size: 13px; font-weight: 600; }
+.market-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.url-row { display: flex; gap: .5rem; margin-bottom: 1rem; }
+.url-row input {
+  flex: 1;
+  min-width: 0;
+  padding: .72rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.url-row input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(21, 94, 239, .1);
+}
+.url-row input::placeholder { font-family: 'DM Sans', sans-serif; color: var(--text3); }
+.go-btn {
+  padding: .72rem 1.1rem;
+  background: var(--text);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .375rem;
+  min-width: 112px;
+  white-space: nowrap;
+  transition: background .15s;
+}
+.go-btn:hover { background: #2d2f34; }
+.go-btn:disabled { opacity: .45; cursor: not-allowed; }
+.spin {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text3);
+  font-size: 13px;
+}
+.empty-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  margin: 0 auto .75rem;
+}
+.result { animation: fadeUp .35s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.price-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .625rem;
+  margin-bottom: .9rem;
+}
+.price-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.price-card.featured {
+  border: 1.5px solid var(--accent);
+  background: var(--accent-bg);
+}
+.price-card.bargain {
+  border: 1.5px solid var(--red);
+  background: var(--red-bg);
+}
+.price-code {
+  width: 42px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: .4rem;
+}
+.price-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.price-sublabel { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.price-right { text-align: right; min-width: 150px; }
+.price-amount {
+  font-family: 'DM Mono', monospace;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: var(--text);
+  white-space: nowrap;
+}
+.price-card.featured .price-amount { color: var(--accent); }
+.price-card.bargain .price-amount { color: var(--red); }
+.price-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+.badge-blue { background: var(--accent); color: #fff; }
+.badge-red { background: var(--red); color: #fff; }
+.badge-green { background: var(--green); color: #fff; }
+.divider {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: .45rem 0;
+  font-size: 11px;
+  color: var(--text3);
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.fx-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-top: .85rem;
+}
+.fx-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--text3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: .6rem;
+}
+.fee-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+}
+.fee-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .65rem .75rem;
+  background: #fbfcfd;
+}
+.fee-pair { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); }
+.fee-cost { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.disc {
+  font-size: 10px;
+  color: var(--text3);
+  text-align: center;
+  line-height: 1.6;
+  margin-top: 1.25rem;
+}
+.hidden { display: none !important; }
+.cookie {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: .875rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 500px;
+  width: calc(100% - 2.5rem);
+  z-index: 100;
+  font-size: 12px;
+}
+.cookie p { flex: 1; color: rgba(255,255,255,.72); }
+.ck-btn {
+  padding: .375rem .875rem;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+.ck-ok { background: #fff; color: var(--text); }
+.ck-no { background: rgba(255,255,255,.12); color: rgba(255,255,255,.75); }
+@media (max-width: 520px) {
+  .shell { padding-top: 1.3rem; }
+  .topbar { align-items: flex-start; }
+  .cat-grid, .market-grid, .fee-grid { grid-template-columns: 1fr; }
+  .url-row { flex-direction: column; }
+  .go-btn { width: 100%; }
+  .price-card { align-items: flex-start; flex-direction: column; }
+  .price-right { min-width: 0; text-align: left; }
+  .price-amount { font-size: 22px; }
+  .cookie { align-items: flex-start; flex-direction: column; }
+}
+</style>
+<script async="async" data-cfasync="false" src="https://pl29665776.effectivecpmnetwork.com/ba6a7851a839236419831ca8323adb54/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : 'c8d80fccf98ec70e62baf4cfe6861cc6',
+    'format' : 'iframe',
+    'height' : 300,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c8d80fccf98ec70e62baf4cfe6861cc6/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : 'c8d80fccf98ec70e62baf4cfe6861cc6',
+    'format' : 'iframe',
+    'height' : 300,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c8d80fccf98ec70e62baf4cfe6861cc6/invoke.js"></script>
+
+<div id="container-ba6a7851a839236419831ca8323adb54"></div>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">WW</div>
+      <div>
+        <div class="brand-name">SiteWorth</div>
+        <div class="brand-sub">by Accurate Games &amp; Services</div>
+      </div>
+    </div>
+    <div class="status-pill"><div class="pulse"></div><span id="rate-status">Rates loading</span></div>
+  </div>
+
+  <div class="hero">
+    <h1>What can you sell your website for?</h1>
+    <p>Select the buyer market first, then get the realistic selling price.</p>
+  </div>
+
+  <div class="bot-msg">
+    <div class="bot-av">AI</div>
+    <span>Pick your website type, choose where the buyer is from, and enter the URL. I will calculate the price for that buyer market.</span>
+  </div>
+
+  <div class="sec-label">Website type</div>
+  <div class="cat-grid" role="radiogroup" aria-label="Website category">
+    <div class="cat-card" onclick="selCat(this,'3dw')" role="radio" aria-checked="false" tabindex="0">
+      <span class="cat-icon">3D</span>
+      <div class="cat-title">3D website</div>
+    </div>
+    <div class="cat-card sel" onclick="selCat(this,'port')" role="radio" aria-checked="true" tabindex="0">
+      <span class="cat-icon">PF</span>
+      <div class="cat-title">Normal portfolio</div>
+    </div>
+    <div class="cat-card" onclick="selCat(this,'3de')" role="radio" aria-checked="false" tabindex="0">
+      <span class="cat-icon">3E</span>
+      <div class="cat-title">3D e-commerce</div>
+    </div>
+    <div class="cat-card" onclick="selCat(this,'eco')" role="radio" aria-checked="false" tabindex="0">
+      <span class="cat-icon">EC</span>
+      <div class="cat-title">E-commerce</div>
+    </div>
+  </div>
+
+  <div class="sec-label">Buyer market</div>
+  <div class="market-grid" role="radiogroup" aria-label="Buyer market">
+    <div class="market-card sel" onclick="selMarket(this,'india')" role="radio" aria-checked="true" tabindex="0">
+      <span class="cat-icon">IN</span>
+      <div>
+        <div class="market-title">Indian buyer</div>
+        <div class="market-sub">Show price in rupees</div>
+      </div>
+    </div>
+    <div class="market-card" onclick="selMarket(this,'global')" role="radio" aria-checked="false" tabindex="0">
+      <span class="cat-icon">US</span>
+      <div>
+        <div class="market-title">International buyer</div>
+        <div class="market-sub">Show price in dollars</div>
+      </div>
+    </div>
+    <div class="market-card" onclick="selMarket(this,'europe')" role="radio" aria-checked="false" tabindex="0">
+      <span class="cat-icon">EU</span>
+      <div>
+        <div class="market-title">European buyer</div>
+        <div class="market-sub">Show price in euros</div>
+      </div>
+    </div>
+    <div class="market-card" onclick="selMarket(this,'uae')" role="radio" aria-checked="false" tabindex="0">
+      <span class="cat-icon">AE</span>
+      <div>
+        <div class="market-title">UAE / Gulf buyer</div>
+        <div class="market-sub">Show price in dirhams</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="url-row">
+    <input id="ui" type="url" placeholder="https://yourwebsite.com" aria-label="Website URL" />
+    <button class="go-btn" id="gb" onclick="run()">
+      <span id="bsp" class="spin hidden"></span>
+      <span id="blb">Check value</span>
+    </button>
+  </div>
+
+  <div id="emp" class="empty">
+    <div class="empty-icon">USD</div>
+    Your prices will show here
+  </div>
+
+  <div id="res" class="result hidden">
+    <div class="bot-reply">
+      <div class="bot-av">AI</div>
+      <span id="bot-reply-text">Here is what <strong id="reply-url"></strong> can sell for right now.</span>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card featured">
+        <div>
+          <div class="price-code" id="main-code">INR</div>
+          <div class="price-label" id="main-label">Indian buyer price</div>
+          <div class="price-sublabel" id="main-sub">Best practical price for India</div>
+        </div>
+        <div class="price-right">
+          <div class="price-amount" id="p-main">-</div>
+          <div><span class="price-badge badge-blue" id="main-badge">MARKET</span></div>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div>
+          <div class="price-code">USD</div>
+          <div class="price-label">USD reference</div>
+          <div class="price-sublabel">For comparing with global value</div>
+        </div>
+        <div class="price-right">
+          <div class="price-amount" id="p-usd-ref">-</div>
+          <div><span class="price-badge badge-green">REFERENCE</span></div>
+        </div>
+      </div>
+
+      <div class="divider">lowest bargaining price</div>
+
+      <div class="price-card bargain">
+        <div>
+          <div class="price-code">MIN</div>
+          <div class="price-label">Blast bargain price</div>
+          <div class="price-sublabel" id="bargain-sub">Absolute floor for this buyer market</div>
+        </div>
+        <div class="price-right">
+          <div class="price-amount" id="p-bargain">-</div>
+          <div><span class="price-badge badge-red">FLOOR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fx-box">
+      <div class="fx-head">
+        <span>Payment conversion guide</span>
+        <span id="fx-date">Fallback rates</span>
+      </div>
+      <div class="fee-grid">
+        <div class="fee-item">
+          <div class="fee-pair" id="fee-primary-pair">Buyer currency -> Your currency</div>
+          <div class="fee-cost" id="fee-primary">Usually 1.0% to 3.5%</div>
+        </div>
+        <div class="fee-item">
+          <div class="fee-pair">Platform / transfer fee</div>
+          <div class="fee-cost" id="fee-platform">Usually 2.0% to 5.0%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disc">
+      Website price is an estimate for a finished starter website without verified traffic or revenue. Exchange rates load live when internet is available; otherwise the app uses safe fallback rates. Not financial advice.
+    </div>
+  </div>
+</div>
+
+<div class="cookie" id="ck">
+  <p>We use cookies to improve your experience.</p>
+  <div style="display:flex;gap:.5rem;flex-shrink:0">
+    <button class="ck-btn ck-no" onclick="document.getElementById('ck').style.display='none'">Reject</button>
+    <button class="ck-btn ck-ok" onclick="document.getElementById('ck').style.display='none'">Accept</button>
+  </div>
+</div>
+
+<script>
+var cat = 'port';
+var market = 'india';
+var catConfig = {
+  'port': { min: 120, max: 750, domainBoost: 160 },
+  '3dw': { min: 350, max: 1800, domainBoost: 280 },
+  'eco': { min: 280, max: 1500, domainBoost: 240 },
+  '3de': { min: 700, max: 3500, domainBoost: 420 }
+};
+var marketConfig = {
+  india: {
+    code: 'INR',
+    label: 'Indian buyer price',
+    sub: 'You can sell this to Indian buyers',
+    reply: 'For Indian buyers,',
+    multiplier: .74,
+    feePair: 'INR -> your bank',
+    fxFee: .02,
+    platformFee: .035
+  },
+  global: {
+    code: 'USD',
+    label: 'International buyer price',
+    sub: 'You can sell this to international buyers',
+    reply: 'For international buyers,',
+    multiplier: 1,
+    feePair: 'USD -> your bank',
+    fxFee: .012,
+    platformFee: .035
+  },
+  europe: {
+    code: 'EUR',
+    label: 'European buyer price',
+    sub: 'You can sell this to European buyers',
+    reply: 'For European buyers,',
+    multiplier: .92,
+    feePair: 'EUR -> your bank',
+    fxFee: .015,
+    platformFee: .035
+  },
+  uae: {
+    code: 'AED',
+    label: 'UAE / Gulf buyer price',
+    sub: 'You can sell this to UAE and Gulf buyers',
+    reply: 'For UAE / Gulf buyers,',
+    multiplier: 1.08,
+    feePair: 'AED -> your bank',
+    fxFee: .018,
+    platformFee: .035
+  }
+};
+var fallbackRates = { USD: 1, INR: 83.5, EUR: 0.92, AED: 3.67 };
+var rates = Object.assign({}, fallbackRates);
+var liveRatesReady = false;
+
+function selCat(el, c) {
+  document.querySelectorAll('.cat-card').forEach(function(x) {
+    x.classList.remove('sel');
+    x.setAttribute('aria-checked', 'false');
+  });
+  el.classList.add('sel');
+  el.setAttribute('aria-checked', 'true');
+  cat = c;
+}
+
+function selMarket(el, m) {
+  document.querySelectorAll('.market-card').forEach(function(x) {
+    x.classList.remove('sel');
+    x.setAttribute('aria-checked', 'false');
+  });
+  el.classList.add('sel');
+  el.setAttribute('aria-checked', 'true');
+  market = m;
+}
+
+function hash(s) {
+  var h = 0;
+  for (var i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function cleanDomain(url) {
+  try {
+    var u = new URL(url.indexOf('://') > -1 ? url : 'https://' + url);
+    return u.hostname.replace(/^www\./, '').toLowerCase();
+  } catch (e) {
+    return url.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0].toLowerCase();
+  }
+}
+
+function domainScore(domain) {
+  var name = domain.split('.')[0] || domain;
+  var ext = domain.split('.').pop();
+  var score = .45;
+  if (name.length <= 10) score += .15;
+  if (name.length <= 6) score += .15;
+  if (/^[a-z]+$/.test(name)) score += .1;
+  if (ext === 'com') score += .1;
+  if (['io', 'ai', 'app', 'co'].indexOf(ext) > -1) score += .06;
+  if (/[0-9-]/.test(name)) score -= .1;
+  return Math.max(.25, Math.min(score, 1));
+}
+
+function fmt(n, currency) {
+  var opts = { maximumFractionDigits: 0 };
+  if (currency === 'INR') return 'Rs ' + Math.round(n).toLocaleString('en-IN');
+  if (currency === 'USD') return '$' + Math.round(n).toLocaleString('en-US');
+  if (currency === 'EUR') return 'EUR ' + Math.round(n).toLocaleString('en-US');
+  if (currency === 'AED') return 'AED ' + Math.round(n).toLocaleString('en-US');
+  return Math.round(n).toLocaleString('en-US', opts);
+}
+
+function convert(usd, currency) {
+  return usd * (rates[currency] || fallbackRates[currency]);
+}
+
+async function loadRates() {
+  try {
+    var res = await fetch('https://open.er-api.com/v6/latest/USD', { cache: 'no-store' });
+    if (!res.ok) throw new Error('Rate request failed');
+    var data = await res.json();
+    if (!data || !data.rates || !data.rates.INR || !data.rates.EUR || !data.rates.AED) {
+      throw new Error('Missing rates');
+    }
+    rates = { USD: 1, INR: data.rates.INR, EUR: data.rates.EUR, AED: data.rates.AED };
+    liveRatesReady = true;
+    document.getElementById('rate-status').textContent = 'Live rates';
+    document.getElementById('fx-date').textContent = 'Updated ' + (data.time_last_update_utc || 'today').replace(' 00:00:01 +0000', '');
+  } catch (e) {
+    liveRatesReady = false;
+    document.getElementById('rate-status').textContent = 'Fallback rates';
+    document.getElementById('fx-date').textContent = 'Fallback rates';
+  }
+}
+
+function run() {
+  var url = document.getElementById('ui').value.trim();
+  if (!url) { document.getElementById('ui').focus(); return; }
+  var gb = document.getElementById('gb');
+  gb.disabled = true;
+  document.getElementById('bsp').classList.remove('hidden');
+  document.getElementById('blb').textContent = 'Checking';
+  setTimeout(function() { calc(url); }, 650);
+}
+
+function calc(url) {
+  var domain = cleanDomain(url);
+  var s = hash(domain + cat + market);
+  var r = function(a, b, o) { return a + ((s + (o || 0)) % (b - a + 1)); };
+  var config = catConfig[cat];
+  var buyer = marketConfig[market];
+  var baseResale = r(config.min, config.max, 13);
+  var domainAdd = Math.round(config.domainBoost * domainScore(domain));
+  var buyerMood = r(86, 108, 7) / 100;
+  var baseUsd = Math.round((baseResale + domainAdd) * buyerMood);
+  var marketUsd = Math.round(baseUsd * buyer.multiplier);
+  var bargainMarket = Math.round(convert(marketUsd, buyer.code) * 0.62);
+  var mainPrice = convert(marketUsd, buyer.code);
+  var fxFee = mainPrice * buyer.fxFee;
+  var platformFee = mainPrice * buyer.platformFee;
+
+  document.getElementById('bot-reply-text').innerHTML = buyer.reply + ' <strong id="reply-url"></strong> can sell for around this price.';
+  document.getElementById('reply-url').textContent = domain.slice(0, 42);
+  document.getElementById('main-code').textContent = buyer.code;
+  document.getElementById('main-label').textContent = buyer.label;
+  document.getElementById('main-sub').textContent = buyer.sub;
+  document.getElementById('main-badge').textContent = buyer.code;
+  document.getElementById('p-main').textContent = fmt(mainPrice, buyer.code);
+  document.getElementById('p-usd-ref').textContent = fmt(marketUsd, 'USD');
+  document.getElementById('p-bargain').textContent = fmt(bargainMarket, buyer.code);
+  document.getElementById('bargain-sub').textContent = 'Lowest price for this buyer market';
+  document.getElementById('fee-primary-pair').textContent = buyer.feePair;
+  document.getElementById('fee-primary').textContent = 'Approx fee: ' + fmt(fxFee, buyer.code) + ' on this price';
+  document.getElementById('fee-platform').textContent = 'Approx fee: ' + fmt(platformFee, buyer.code) + ' if sold through a marketplace';
+
+  document.getElementById('emp').classList.add('hidden');
+  document.getElementById('res').classList.remove('hidden');
+  document.getElementById('gb').disabled = false;
+  document.getElementById('bsp').classList.add('hidden');
+  document.getElementById('blb').textContent = 'Check value';
+  document.getElementById('res').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('ui').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') run();
+});
+
+loadRates();
+</script>
+<div id="all-my-ads" style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin: 30px 0;">
+
+    <div class="<script async="async" data-cfasync="false" src="https://pl29665776.effectivecpmnetwork.com/ba6a7851a839236419831ca8323adb54/invoke.js"></script>
+<div id="container-ba6a7851a839236419831ca8323adb54"></div>
+">
+        </div>
+
+    <div class="<script>
+  atOptions = {
+    'key' : 'fb0761915a64835477e0f2c5aabb8da8',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/fb0761915a64835477e0f2c5aabb8da8/invoke.js"></script>
+">
+        </div>
+
+    <div class="<script src="https://pl29658103.effectivecpmnetwork.com/a7/f8/95/a7f8958018413bd46b49a2e7e3a02de2.js"></script>
+">
+        </div>
+
+    <div class="<script src="https://pl29658103.effectivecpmnetwork.com/a7/f8/95/a7f8958018413bd46b49a2e7e3a02de2.js"></script>
+">
+        <a href="https://www.effectivecpmnetwork.com/f3yn4x6ei3?key=0270fa034da036b00359a0238f7e710f" 
+           target="_blank" 
+           style="display: inline-block; padding: 12px 24px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-family: sans-serif; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+           Click Here to Continue
+        </a>
+    </div>
+
+</div>
+</body>
+</html>
